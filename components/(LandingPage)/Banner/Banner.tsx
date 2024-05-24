@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { FaArrowRight } from "react-icons/fa";
 import Star from "../../../public/Star.png";
 import Image from "next/image";
+
 type Action = {
   heading: string;
 };
@@ -36,7 +37,7 @@ const Benefit: React.FC<BenefitProps> = ({ heading }) => {
 
 const Banner: React.FC = () => {
   return (
-    <section className="relative p-20 overflow-hidden bg-primary/50">
+    <section className="relative mt-[150px] p-20 overflow-hidden bg-primary/50">
       <div className="container flex flex-col gap-10 sm:flex-row">
         <div className="flex-1">
           <h2 className="mb-5 text-5xl font-bold font-playfair">

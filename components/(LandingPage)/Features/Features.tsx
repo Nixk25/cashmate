@@ -7,29 +7,29 @@ import { Button } from "@/components/ui/button";
 import { FaCalendar, FaClock, FaEye, FaChartSimple } from "react-icons/fa6";
 import Plan from "../../../public/Plan.png";
 import Security from "../../../public/Security.png";
-
 import Image from "next/image";
 export const Features = () => {
   return (
-    <div className="min-h-screen px-4 py-12 ">
-      <Logo />
-      <motion.div
-        initial="initial"
-        whileInView="animate"
-        transition={{
-          staggerChildren: 0.05,
-        }}
-        viewport={{ once: true }}
-        className="grid grid-cols-12 gap-4 mx-auto grid-flow-dense"
-      >
-        <Visualization />
-        <Savings />
-        <FinancialPlanning />
-        <History />
-        <DataSec />
-        <Goals />
-      </motion.div>
-    </div>
+    <section id="features" className="mt-[150px]">
+      <div className="container">
+        <motion.div
+          initial="initial"
+          whileInView="animate"
+          transition={{
+            staggerChildren: 0.05,
+          }}
+          viewport={{ once: true }}
+          className="grid grid-cols-12 gap-4 mx-auto mb-20 grid-flow-dense"
+        >
+          <Visualization />
+          <Savings />
+          <FinancialPlanning />
+          <History />
+          <DataSec />
+          <Goals />
+        </motion.div>
+      </div>
+    </section>
   );
 };
 
@@ -195,25 +195,3 @@ const Goals = () => (
     />
   </Block>
 );
-
-const Logo = () => {
-  return (
-    <svg
-      width="40"
-      height="auto"
-      viewBox="0 0 50 39"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mx-auto mb-12 fill-zinc-50"
-    >
-      <path
-        d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
-        stopColor="#000000"
-      ></path>
-      <path
-        d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z"
-        stopColor="#000000"
-      ></path>
-    </svg>
-  );
-};

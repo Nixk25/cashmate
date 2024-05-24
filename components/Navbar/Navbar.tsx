@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 
 const navLinks = [
-  { href: "#home", title: "Features" },
+  { href: "#features", title: "Features" },
   { href: "#about", title: "Pricing" },
   { href: "#skills", title: "FQA" },
 ];
@@ -37,7 +37,7 @@ const Navbar = () => {
         y: 0,
       }}
     >
-      <Link className="absolute " href="/">
+      <Link className="absolute " href="#hero">
         <Image
           src={logo}
           height={100}
@@ -48,8 +48,11 @@ const Navbar = () => {
       </Link>
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isChanged ? 0 : 1 }}
+        initial={{ visibility: "hidden", opacity: 0 }}
+        animate={{
+          visibility: isChanged ? "hidden" : "visible",
+          opacity: isChanged ? 0 : 1,
+        }}
         transition={{ delay: isChanged ? 0 : 0.5 }}
         className="flex items-center justify-end w-full gap-10 text-sm "
       >
