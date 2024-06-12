@@ -82,7 +82,6 @@ const Experts = () => {
                         alt={name}
                         width={200}
                         height={200}
-                        objectFit="cover"
                         className="object-cover w-full h-full mb-4 rounded-md rounded-bl-none rounded-br-none"
                       />
                     </div>
