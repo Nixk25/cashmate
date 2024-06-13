@@ -56,11 +56,11 @@ const Experts = () => {
   return (
     <section className="mt-[150px]">
       <div className="container">
-        <div className="flex items-center justify-center ">
-          <h2 className="flex-1 font-bold clamp font-playfair">
+        <div className="flex items-center flex-col lg:flex-row justify-center ">
+          <h2 className="flex-1 font-bold text-4xl md:text-6xl mb-5 md:text-start text-center font-playfair">
             Get Insights from Financial Experts
           </h2>
-          <p className="flex-1 text-xl">
+          <p className="flex-1 text-xl text-center md:text-start">
             Our carefully selected and vetted financial experts offer advice and
             tips to help you manage your money better.
           </p>
@@ -73,9 +73,12 @@ const Experts = () => {
         >
           <CarouselContent>
             {experts.map(({ name, description, image }, i) => (
-              <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
-                <Card className="h-[500px] w-[400px] border-2 border-[#1e1e1e] shadow-lg ">
-                  <CardContent className="flex flex-col items-center justify-center p-0 ">
+              <CarouselItem
+                key={i}
+                className="lg:basis-1/2 xl:basis-1/3  cursor-grab active:cursor-grabbing flex lg:justify-start justify-center items-center"
+              >
+                <Card className="h-[600px] w-[300px] sm:w-[400px] border-2 border-[#1e1e1e] shadow-lg  ">
+                  <CardContent className="flex flex-col items-center justify-center p-0 pointer-events-none select-none">
                     <div className="w-full h-[300px]">
                       <Image
                         src={image}

@@ -6,7 +6,7 @@ export function HeroDesc() {
   return (
     <section className="my-10">
       <div className="container">
-        <div className="flex gap-20 ">
+        <div className="flex flex-col lg:flex-row gap-10 ">
           <LeftSideHero />
           <RightSideHero />
         </div>

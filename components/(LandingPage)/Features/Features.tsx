@@ -65,9 +65,9 @@ const Block = ({ className, ...rest }: BlockProps) => {
 };
 
 const Visualization = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 row-span-4 overflow-hidden md:col-span-4">
+  <Block className="relative flex flex-col justify-between col-span-12 row-span-4 overflow-hidden lg:col-span-4 grayscale hover:grayscale-0  group">
     <div>
-      <h3 className="text-4xl font-medium leading-tight font-playfair">
+      <h3 className="text-4xl font-bold leading-tight font-playfair">
         Visualization
       </h3>
       <p>
@@ -81,7 +81,7 @@ const Visualization = () => (
     </Button>
     <FaChartSimple
       fill="white"
-      className="absolute z-0 -right-2 -bottom-10"
+      className="absolute z-[-1]  group-hover:right-10 transition-all duration-300 -right-2 -bottom-10"
       size={200}
     />
   </Block>
@@ -89,8 +89,8 @@ const Visualization = () => (
 
 const Savings = () => (
   <>
-    <Block className="relative flex flex-col justify-between col-span-6 row-span-2 overflow-hidden bg-primary/20 md:col-span-4">
-      <h3 className="text-4xl font-medium leading-tigh font-playfair">
+    <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0  group">
+      <h3 className="text-4xl font-bold leading-tigh font-playfair">
         Identifying Savings
       </h3>
       <p className="mb-5">
@@ -102,7 +102,7 @@ const Savings = () => (
       </Button>
       <FaEye
         fill="black"
-        className="absolute  z-0 -right-10 -bottom-[100px] opacity-30"
+        className="absolute  z-[-1] -right-10 group-hover:right-10 group-hover:bottom-[20px] transition-all duration-300 -bottom-[100px] opacity-30"
         size={200}
       />
     </Block>
@@ -110,9 +110,9 @@ const Savings = () => (
 );
 
 const FinancialPlanning = () => (
-  <Block className="relative flex flex-col justify-between col-span-4 row-span-4 overflow-hidden leading-snug">
+  <Block className="relative flex flex-col justify-between col-span-12 lg:col-span-4 row-span-4 overflow-hidden leading-snug grayscale hover:grayscale-0  group">
     <div>
-      <h3 className="mb-3 text-4xl font-medium leading-tigh font-playfair">
+      <h3 className="mb-3 text-4xl font-bold leading-tigh font-playfair">
         Better Financial Planning
       </h3>
       <p>
@@ -126,15 +126,15 @@ const FinancialPlanning = () => (
     </Button>
     <FaCalendar
       fill="white"
-      className="absolute z-0 -right-2 -bottom-20 "
+      className="absolute z-[-1] -right-2 group-hover:right-10 transition-all duration-300 -bottom-20 "
       size={200}
     />
   </Block>
 );
 
 const History = () => (
-  <Block className="relative flex flex-col justify-between col-span-6 row-span-2 overflow-hidden bg-primary/20 md:col-span-4">
-    <h3 className="text-4xl font-medium leading-tigh font-playfair">History</h3>
+  <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0  group">
+    <h3 className="text-4xl font-bold leading-tigh font-playfair">History</h3>
     <p className="mb-5">Users can easily track financial history.</p>
     <Button className="flex items-center justify-center transition-all bg-black w-max group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
       Learn More{" "}
@@ -142,15 +142,15 @@ const History = () => (
     </Button>
     <FaClock
       fill="black"
-      className="absolute  z-0 -right-10 -bottom-[100px] opacity-30"
+      className="absolute  z-[-1] -right-10 group-hover:right-10 transition-all -bottom-[100px] opacity-30"
       size={200}
     />
   </Block>
 );
 
 const DataSec = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden md:col-span-7 ">
-    <h3 className="text-4xl font-medium leading-tigh font-playfair">
+  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-7  grayscale hover:grayscale-0    group">
+    <h3 className="text-4xl font-bold leading-tigh font-playfair">
       Data Security and Encryption
     </h3>
     <p>
@@ -167,14 +167,14 @@ const DataSec = () => (
       width={200}
       height={200}
       alt="Chart icon "
-      className="absolute z-0 -right-10 -bottom-24 "
+      className="absolute z-[-1] -right-10 -bottom-24  group-hover:right-10 transition-all duration-300"
     />
   </Block>
 );
 const Goals = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden md:col-span-5 ">
+  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-5  grayscale hover:grayscale-0  group">
     <div className="relative z-10 mb-5">
-      <h3 className="text-4xl font-medium leading-tigh font-playfair">
+      <h3 className="text-4xl font-bold leading-tigh font-playfair">
         Tracking Financial Goals
       </h3>
       <p>
@@ -191,7 +191,7 @@ const Goals = () => (
       width={200}
       height={200}
       alt="Chart icon "
-      className="absolute z-0 -right-10 -bottom-[100px] "
+      className="absolute z-[-1] -right-10 -bottom-[100px]  group-hover:right-10 transition-all duration-300"
     />
   </Block>
 );

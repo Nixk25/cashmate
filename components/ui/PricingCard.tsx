@@ -28,7 +28,7 @@ const PricingCard = ({
   textColor,
 }: PricingCardPropsType) => {
   return (
-    <Card className="p-0 h-[530px] min-w-[400px]  flex flex-col justify-between">
+    <Card className="p-0 h-[530px] min-w-[300px]  flex flex-col justify-between">
       <CardContent className="p-0">
         <CardHeader className={`py-10 bg-${color} rounded-md m-1`}>
           <span className={`text-sm text-${textColor} opacity-80`}>

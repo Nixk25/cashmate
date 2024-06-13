@@ -6,6 +6,7 @@ import Banner from "@/components/(LandingPage)/Banner/Banner";
 import Experts from "@/components/(LandingPage)/Experts/Experts";
 import Pricing from "@/components/(LandingPage)/Pricing/Pricing";
 import GetStarted from "@/components/(LandingPage)/GetStarted/GetStarted";
+import Footer from "@/components/Footer/Footer";
 export default function Home() {
   return (
     <main className="relative h-[90vh]">
@@ -16,6 +17,7 @@ export default function Home() {
       <Experts />
       <Pricing />
       <GetStarted />
+      <Footer />
     </main>
   );
 }

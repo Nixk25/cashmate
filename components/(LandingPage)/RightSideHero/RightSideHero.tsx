@@ -5,7 +5,7 @@ import { FaStar, FaHandsClapping } from "react-icons/fa6";
 
 const RightSideHero = () => {
   return (
-    <div className="flex flex-1 gap-10">
+    <div className="flex flex-1 flex-col md:flex-row gap-10">
       <RatingCard />
 
       <div className="flex flex-col justify-between flex-1 p-5 rounded-lg bg-primary/40">

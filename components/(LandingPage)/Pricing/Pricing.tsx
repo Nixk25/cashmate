@@ -19,27 +19,29 @@ const paidAdvantages: AdvantageType[] = [
 ];
 const Pricing = () => {
   return (
-    <section className="relative pb-[200px] mt-20 bg-gray-950">
+    <section className="relative mb-[100px]  mt-[300px] ">
       <div className="container">
-        <h2 className="pt-10 mb-10 tracking-tighter text-center text-white clamp font-playfair">
+        <h2 className="pt-10  bg-gray-950 pb-[200px] absolute w-full z-0 left-0 -top-[200px] tracking-tighter text-center text-white clamp font-playfair">
           Find your perfect plan
         </h2>
-        <div className="absolute -bottom-[380px] left-1/2 -translate-x-1/2 flex items-center justify-center  gap-10 bg-white px-20 py-10 rounded-lg">
-          <PricingCard
-            subheading="Perfect for personal use"
-            price="Free"
-            category="Starter"
-            advantages={freeAdvantages}
-            color="white"
-          />
-          <PricingCard
-            subheading="Perfect for team"
-            price="$12/month"
-            category="Professional"
-            advantages={paidAdvantages}
-            color="primary"
-            textColor="white"
-          />
+        <div className=" relative z-10  flex items-center justify-center   gap-10  rounded-lg w-full">
+          <div className=" flex  gap-10 rounded-lg lg:flex-row justify-center flex-col">
+            <PricingCard
+              subheading="Perfect for personal use"
+              price="Free"
+              category="Starter"
+              advantages={freeAdvantages}
+              color="white"
+            />
+            <PricingCard
+              subheading="Perfect for team"
+              price="$12/month"
+              category="Professional"
+              advantages={paidAdvantages}
+              color="primary"
+              textColor="white"
+            />
+          </div>
         </div>
       </div>
     </section>
