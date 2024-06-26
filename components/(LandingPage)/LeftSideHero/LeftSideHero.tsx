@@ -57,7 +57,7 @@ const LeftSideHero = () => {
         </div>
         <span>JOIN OUR COMMUNITY OF 150K+ AUTHORS AND READERS!</span>
       </div>
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-5 lg:flex-row">
         <Button className="group">
           Learn More{" "}
           <FaArrowRight className="ml-1 transition-all group-hover:-rotate-45 " />
