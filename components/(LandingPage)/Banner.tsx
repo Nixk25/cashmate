@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaArrowRight } from "react-icons/fa";
-import Star from "../../../public/star.png";
+import Star from "../../public/star.png";
 import Image from "next/image";
 
 type Action = {

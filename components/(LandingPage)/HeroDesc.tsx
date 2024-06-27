@@ -1,6 +1,6 @@
 import React from "react";
-import LeftSideHero from "../LeftSideHero/LeftSideHero";
-import RightSideHero from "../RightSideHero/RightSideHero";
+import LeftSideHero from "./LeftSideHero";
+import RightSideHero from "./RightSideHero";
 
 export function HeroDesc() {
   return (

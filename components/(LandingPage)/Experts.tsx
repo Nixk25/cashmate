@@ -8,11 +8,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
-import first from "../../../public/firstman.jpeg";
-import second from "../../../public/secondwoman.jpeg";
-import third from "../../../public/third.jpeg";
-import fourth from "../../../public/fourth.jpeg";
-import fifth from "../../../public/fifth.jpeg";
+import first from "../../public/firstman.jpeg";
+import second from "../../public/secondwoman.jpeg";
+import third from "../../public/third.jpeg";
+import fourth from "../../public/fourth.jpeg";
+import fifth from "../../public/fifth.jpeg";
 
 type ExpertsType = {
   name: string;

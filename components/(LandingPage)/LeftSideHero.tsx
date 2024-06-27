@@ -1,7 +1,7 @@
 import React from "react";
-import { AnimatedTooltip } from "../../ui/animated-tooltip";
+import { AnimatedTooltip } from "../ui/animated-tooltip";
 import { FaArrowRight } from "react-icons/fa6";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 
 const people = [
   {

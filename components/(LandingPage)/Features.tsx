@@ -5,8 +5,8 @@ import { twMerge } from "tailwind-merge";
 import { FaArrowRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { FaCalendar, FaClock, FaEye, FaChartSimple } from "react-icons/fa6";
-import Plan from "../../../public/Plan.png";
-import Security from "../../../public/Security.png";
+import Plan from "../../public/Plan.png";
+import Security from "../../public/Security.png";
 import Image from "next/image";
 export const Features = () => {
   return (
