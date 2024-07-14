@@ -1,10 +1,13 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import AnimatedNavbar from "./AnimatedNavbar";
+"use client";
+import React from "react";
+import Menu from "./Menu"; // Import your Menu component
+import AnimatedNavbar from "./AnimatedNavbar"; // Import your AnimatedNavbar component
+import { useMediaQuery } from "react-responsive";
 
-const Navbar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  return <AnimatedNavbar user={user} />;
+const Navbar = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+
+  return isMobile ? <Menu /> : <AnimatedNavbar />;
 };
 
 export default Navbar;

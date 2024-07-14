@@ -8,7 +8,7 @@ import { FaCalendar, FaClock, FaEye, FaChartSimple } from "react-icons/fa6";
 import Plan from "../../public/Plan.png";
 import Security from "../../public/Security.png";
 import Image from "next/image";
-export const Features = () => {
+const Features = () => {
   return (
     <section id="features" className="mt-[150px]">
       <div className="container">
@@ -65,7 +65,7 @@ const Block = ({ className, ...rest }: BlockProps) => {
 };
 
 const Visualization = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 row-span-4 overflow-hidden lg:col-span-4 grayscale hover:grayscale-0  group">
+  <Block className="relative flex flex-col justify-between col-span-12 row-span-4 overflow-hidden lg:col-span-4 grayscale hover:grayscale-0 group">
     <div>
       <h3 className="text-4xl font-bold leading-tight font-playfair">
         Visualization
@@ -89,7 +89,7 @@ const Visualization = () => (
 
 const Savings = () => (
   <>
-    <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0  group">
+    <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0 group">
       <h3 className="text-4xl font-bold leading-tigh font-playfair">
         Identifying Savings
       </h3>
@@ -110,7 +110,7 @@ const Savings = () => (
 );
 
 const FinancialPlanning = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 lg:col-span-4 row-span-4 overflow-hidden leading-snug grayscale hover:grayscale-0  group">
+  <Block className="relative flex flex-col justify-between col-span-12 row-span-4 overflow-hidden leading-snug lg:col-span-4 grayscale hover:grayscale-0 group">
     <div>
       <h3 className="mb-3 text-4xl font-bold leading-tigh font-playfair">
         Better Financial Planning
@@ -133,7 +133,7 @@ const FinancialPlanning = () => (
 );
 
 const History = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0  group">
+  <Block className="relative flex flex-col justify-between col-span-12 row-span-2 overflow-hidden bg-primary/20 lg:col-span-4 grayscale hover:grayscale-0 group">
     <h3 className="text-4xl font-bold leading-tigh font-playfair">History</h3>
     <p className="mb-5">Users can easily track financial history.</p>
     <Button className="flex items-center justify-center transition-all bg-black w-max group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
@@ -149,7 +149,7 @@ const History = () => (
 );
 
 const DataSec = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-7  grayscale hover:grayscale-0    group">
+  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-7 grayscale hover:grayscale-0 group">
     <h3 className="text-4xl font-bold leading-tigh font-playfair">
       Data Security and Encryption
     </h3>
@@ -172,7 +172,7 @@ const DataSec = () => (
   </Block>
 );
 const Goals = () => (
-  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-5  grayscale hover:grayscale-0  group">
+  <Block className="relative flex flex-col justify-between col-span-12 overflow-hidden lg:col-span-5 grayscale hover:grayscale-0 group">
     <div className="relative z-10 mb-5">
       <h3 className="text-4xl font-bold leading-tigh font-playfair">
         Tracking Financial Goals
@@ -195,3 +195,5 @@ const Goals = () => (
     />
   </Block>
 );
+
+export default Features;

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-
+import Link from "next/link";
 type UserNavTypes = {
   email: string;
   name: string;
@@ -40,10 +40,10 @@ const UserNav = ({ email, name, surname, userImage }: UserNavTypes) => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <Link href="/profile" className="cursor-pointer">
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+        </Link>
+
         <LogoutLink>
           <DropdownMenuItem className="cursor-pointer">Logout</DropdownMenuItem>
         </LogoutLink>

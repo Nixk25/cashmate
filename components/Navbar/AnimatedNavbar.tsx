@@ -9,10 +9,9 @@ import { Button } from "../ui/button";
 import {
   RegisterLink,
   LoginLink,
-  LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import UserNav from "./UserNav";
-const AnimatedNavbar = ({ user }: { user: any }) => {
+const AnimatedNavbar = () => {
   const navLinks = [
     { href: "#features", title: "Features" },
     { href: "#about", title: "Pricing" },
@@ -70,24 +69,16 @@ const AnimatedNavbar = ({ user }: { user: any }) => {
             </a>
           ))}
         </div>
-        {user ? (
-          <UserNav
-            name={user.given_name}
-            surname={user.family_name}
-            email={user.email}
-            userImage={user.picture}
-          />
-        ) : (
-          <div className="flex items-center justify-center gap-5">
-            <LoginLink className="transition-colors hover:text-slate-900">
-              Sign In
-            </LoginLink>
 
-            <Button className="transition-all bg-white text-slate-900 hover:brightness-105 hover:bg-white hover:scale-105 active:scale-95">
-              <RegisterLink>Try Free</RegisterLink>
-            </Button>
-          </div>
-        )}
+        <div className="flex items-center justify-center gap-5">
+          <LoginLink className="transition-colors hover:text-slate-900">
+            Sign In
+          </LoginLink>
+
+          <Button className="transition-all bg-white text-slate-900 hover:brightness-105 hover:bg-white hover:scale-105 active:scale-95">
+            <RegisterLink>Try Free</RegisterLink>
+          </Button>
+        </div>
       </motion.div>
     </motion.nav>
   );

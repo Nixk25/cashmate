@@ -1,6 +1,6 @@
 import React from "react";
 import RadialGradient from "@/components/ui/radial-gradient";
-import { UploadDropzone } from "@/app/lib/uploadthing";
+
 const Hero = () => {
   return (
     <section
@@ -14,7 +14,7 @@ const Hero = () => {
         Manage your income and expenses easily and securely, without sharing
         your bank account details.
       </p>
-      <UploadDropzone endpoint="imageUploader" />
+
       <RadialGradient origin="top left" size={700} className="z-0" />
       <RadialGradient origin="top right" size={700} className="z-0" />
       <RadialGradient origin="top" size={700} className="z-0" />

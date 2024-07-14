@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./button";
-import { AdvantageType } from "../(LandingPage)/Pricing";
+import { AdvantageType } from "../LandingPage/Pricing";
 import { TiTick } from "react-icons/ti";
 
 type PricingCardPropsType = {
