@@ -10,7 +10,6 @@ import {
   RegisterLink,
   LoginLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-import UserNav from "./UserNav";
 const AnimatedNavbar = () => {
   const navLinks = [
     { href: "#features", title: "Features" },
@@ -71,12 +70,15 @@ const AnimatedNavbar = () => {
         </div>
 
         <div className="flex items-center justify-center gap-5">
-          <LoginLink className="transition-colors hover:text-slate-900">
+          <Link
+            href="auth/login"
+            className="transition-colors hover:text-slate-900"
+          >
             Sign In
-          </LoginLink>
+          </Link>
 
           <Button className="transition-all bg-white text-slate-900 hover:brightness-105 hover:bg-white hover:scale-105 active:scale-95">
-            <RegisterLink>Try Free</RegisterLink>
+            <Link href="auth/signUp">Try Free</Link>
           </Button>
         </div>
       </motion.div>
