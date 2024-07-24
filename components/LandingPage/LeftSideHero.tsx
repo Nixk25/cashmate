@@ -2,7 +2,7 @@ import React from "react";
 import { AnimatedTooltip } from "../ui/animated-tooltip";
 import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "../ui/button";
-
+import { motion } from "framer-motion";
 const people = [
   {
     id: 1,
@@ -55,7 +55,13 @@ const LeftSideHero = () => {
         <div className="flex ">
           <AnimatedTooltip items={people} />
         </div>
-        <span>JOIN OUR COMMUNITY OF 150K+ AUTHORS AND READERS!</span>
+        <motion.span
+          initial={{ y: "100%", opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          JOIN OUR COMMUNITY OF 150K+ AUTHORS AND READERS!
+        </motion.span>
       </div>
       <div className="flex flex-col gap-5 lg:flex-row">
         <Button className="group">

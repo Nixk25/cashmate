@@ -17,7 +17,7 @@ import { IoReturnUpBack } from "react-icons/io5";
 
 const Login = () => {
   return (
-    <div className="flex justify-center items-center h-screen  overflow-hidden">
+    <div className="flex justify-center items-center  relative h-screen  overflow-hidden">
       <Link
         href="/"
         className="flex justify-center items-center gap-3 absolute top-5 left-5 hover:text-primary transition-all duration-150"
