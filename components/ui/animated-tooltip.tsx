@@ -38,6 +38,7 @@ export const AnimatedTooltip = ({
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: idx * 0.2 }}
+          viewport={{ once: true }}
           className="relative -mr-4 group"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}

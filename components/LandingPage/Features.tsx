@@ -16,7 +16,7 @@ const Features = () => {
           initial="initial"
           whileInView="animate"
           transition={{
-            staggerChildren: 0.05,
+            staggerChildren: 0.2,
           }}
           viewport={{ once: true }}
           className="grid grid-cols-12 gap-4 mx-auto mb-20 grid-flow-dense"

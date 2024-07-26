@@ -2,13 +2,19 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { FaStar, FaHandsClapping } from "react-icons/fa6";
-
+import { motion } from "framer-motion";
 const RightSideHero = () => {
   return (
     <div className="flex flex-1 flex-col md:flex-row gap-10">
       <RatingCard />
 
-      <div className="flex flex-col justify-between flex-1 p-5 rounded-lg bg-primary/40">
+      <motion.div
+        initial={{ y: 20, opacity: 0, filter: "blur(5px)" }}
+        whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+        transition={{ delay: 0.6, ease: "easeIn" }}
+        viewport={{ once: true }}
+        className="flex flex-col justify-between flex-1 p-5 rounded-lg bg-primary/40"
+      >
         <div className="flex justify-end w-full">
           <Button variant="outline" className="group w-max ">
             Get started{" "}
@@ -18,14 +24,20 @@ const RightSideHero = () => {
         <p className="mt-10 text-2xl font-bold">
           Track. Save. <br /> Prosper.
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
 const RatingCard = () => {
   return (
-    <div className="flex-1 rounded-lg p-7 bg-primary/10">
+    <motion.div
+      initial={{ y: 20, opacity: 0, filter: "blur(5px)" }}
+      whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+      transition={{ delay: 0.3, ease: "easeIn" }}
+      viewport={{ once: true }}
+      className="flex-1 rounded-lg p-7 bg-primary/10"
+    >
       <div className="flex gap-5 ">
         <div className="flex items-center gap-5 ">
           <span className="text-4xl font-bold">4.97</span>
@@ -48,7 +60,7 @@ const RatingCard = () => {
         "It's not just about passive consumption; it's about actively engaging
         with others who share my passion for learning."
       </p>
-    </div>
+    </motion.div>
   );
 };
 
