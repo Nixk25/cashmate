@@ -7,15 +7,8 @@ import Banner from "@/components/LandingPage/Banner";
 import Experts from "@/components/LandingPage/Experts";
 import Pricing from "@/components/LandingPage/Pricing";
 import Footer from "@/components/Footer/Footer";
-import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar/Navbar";
-
-const LandingPage = ({ user }: any) => {
-  const router = useRouter();
-
-  if (user) {
-    router.push("/dashboard");
-  }
+const LandingPage = () => {
   return (
     <>
       <Navbar />

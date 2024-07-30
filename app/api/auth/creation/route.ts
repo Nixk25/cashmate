@@ -22,10 +22,10 @@ export async function GET() {
         firstName: user.given_name ?? "",
         lastName: user.family_name ?? "",
         email: user.email ?? "",
-        profileImage: user.picture ?? "",
+        profilePicture: user.picture ?? "",
       },
     });
   }
 
-  return NextResponse.redirect("http://localhost:3000/dashboard");
+  return NextResponse.redirect("http://localhost:3000/onboarding");
 }

@@ -19,10 +19,10 @@ const Login = () => {
         <IoReturnUpBack />
         <span>Go back</span>
       </Link>
-      <div className="size-[350px] absolute -bottom-10 -right-10">
+      <div className="lg:size-[350px] size-[170px] absolute -bottom-10 -right-10">
         <Image src={bgImg1} alt="bg-img1" fill />
       </div>
-      <div className="size-[350px] absolute -bottom-20 -left-10">
+      <div className="lg:size-[350px] size-[170px] absolute -bottom-20 -left-10">
         <Image src={bgImg2} alt="bg-img1" fill />
       </div>
       <LoginForm />

@@ -7,10 +7,10 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="container flex flex-col items-center justify-center h-full pb-10 text-center border-b border-slate-700"
+      className="container flex flex-col items-center justify-center h-full pb-10 text-center border-b border-slate-700 "
     >
       <GradualSpacing
-        className="relative z-10 leading-tight font-playfair clamp font-bold "
+        className="relative z-10  font-playfair clamp font-bold "
         text="Take Control of Your Finances with CashMate"
       />
       <motion.p

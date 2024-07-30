@@ -7,18 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import { motion } from "framer-motion";
-import GradualSpacing from "../magicui/gradual-spacing";
 const LeftSide = () => {
   const [email, setEmail] = useState<string>("");
   return (
-    <div className="flex items-center justify-center py-12 flex-1">
+    <div className="flex items-center justify-center py-12 px-5 flex-1">
       <div className=" flex flex-col gap-6 ">
         <div className=" gap-2 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: "easeIn", duration: 0.3 }}
-            className="text-3xl font-bold"
+            className="md:text-3xl font-bold text-xl"
           >
             Welcome to CashMate 👋
           </motion.h1>
@@ -70,7 +69,7 @@ const LeftSide = () => {
                 Or
               </span>
             </div>
-            <LoginLink
+            <RegisterLink
               authUrlParams={{
                 connection_id:
                   process.env.NEXT_PUBLIC_GOOGLE_CONNECTION_ID || "",
@@ -83,8 +82,8 @@ const LeftSide = () => {
                 <FaGoogle size={20} className="mr-3" />
                 <span>Continue with Google</span>
               </Button>
-            </LoginLink>
-            <LoginLink
+            </RegisterLink>
+            <RegisterLink
               authUrlParams={{
                 connection_id:
                   process.env.NEXT_PUBLIC_APPLE_CONNECTION_ID || "",
@@ -97,7 +96,7 @@ const LeftSide = () => {
                 <FaApple size={20} className="mr-3" />
                 <span>Continue with Apple</span>
               </Button>
-            </LoginLink>
+            </RegisterLink>
           </div>
         </motion.div>
         <motion.div

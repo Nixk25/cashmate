@@ -25,9 +25,9 @@ const RightSide = () => {
       initial={{ opacity: 0, filter: "blur(5px)", x: "100%" }}
       animate={{ opacity: 1, filter: "blur(0px)", x: 0 }}
       transition={{ ease: "easeIn", duration: 0.3 }}
-      className="flex flex-col justify-center flex-1 p-8 bg-primary relative"
+      className=" flex-col hidden lg:flex justify-center flex-1 p-8 bg-primary relative"
     >
-      <div className="bg-primary h-full w-[100px] absolute top-0 -left-20 -skew-x-2" />
+      <div className="bg-primary h-full w-[50px] absolute top-0 xl:w-[100px] -left-5 xl:-left-10 -skew-x-2" />
       <div className="flex items-center  gap-3 mb-10">
         <div className="relative">
           <div className="rounded-full bg-white p-3 size-10" />

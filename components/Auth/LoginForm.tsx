@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs";
 const LoginForm = () => {
   return (
     <motion.div
@@ -14,9 +15,9 @@ const LoginForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ ease: "easeIn", duration: 0.3 }}
     >
-      <Card className="my-auto w-[500px]  border-none outline-none">
+      <Card className="my-auto border-none outline-none">
         <CardHeader>
-          <CardTitle className="text-6xl text-center  font-playfair ">
+          <CardTitle className="text-3xl lg:text-6xl text-center  font-playfair ">
             Welcome back 👋
           </CardTitle>
         </CardHeader>
@@ -35,20 +36,34 @@ const LoginForm = () => {
             <Button type="submit" className="w-full">
               Login
             </Button>
-            <Button
-              variant="outline"
-              className="w-full flex justify-center items-center"
+            <LoginLink
+              authUrlParams={{
+                connection_id:
+                  process.env.NEXT_PUBLIC_GOOGLE_CONNECTION_ID || "",
+              }}
             >
-              <FaGoogle size={20} className="mr-3" />
-              <span>Continue with Google</span>
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full flex justify-center items-center"
+              <Button
+                variant="outline"
+                className="w-full flex justify-center items-center"
+              >
+                <FaGoogle size={20} className="mr-3" />
+                <span>Continue with Google</span>
+              </Button>
+            </LoginLink>
+            <LoginLink
+              authUrlParams={{
+                connection_id:
+                  process.env.NEXT_PUBLIC_APPLE_CONNECTION_ID || "",
+              }}
             >
-              <FaApple size={20} className="mr-3" />
-              <span>Continue with Apple</span>
-            </Button>
+              <Button
+                variant="outline"
+                className="w-full flex justify-center items-center"
+              >
+                <FaApple size={20} className="mr-3" />
+                <span>Continue with Apple</span>
+              </Button>
+            </LoginLink>
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}

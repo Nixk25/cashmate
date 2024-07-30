@@ -7,38 +7,53 @@ import { cn } from "@/lib/utils";
 interface GradualSpacingProps {
   text: string;
   duration?: number;
-  delayMultiple?: number;
+  spaceSize?: string;
   framerProps?: Variants;
   className?: string;
+  delay?: number;
 }
 
 export default function GradualSpacing({
   text,
-  duration = 0.5,
-  delayMultiple = 0.04,
+  duration = 0.1,
+  spaceSize = "w-5",
   framerProps = {
-    hidden: { opacity: 0, x: -20, filter: "blur(5px)" },
+    hidden: { opacity: 0, x: -30, filter: "blur(20px)" },
     visible: { opacity: 1, x: 0, filter: "blur(0px)" },
   },
   className,
+  delay,
 }: GradualSpacingProps) {
   return (
-    <div className="flex gap-x-2 flex-wrap justify-center md:justify-start text-center">
-      <AnimatePresence>
-        {text.split(" ").map((char, i) => (
-          <motion.h1
-            key={i}
-            initial="hidden"
-            whileInView="visible"
-            exit="hidden"
-            variants={framerProps}
-            transition={{ duration, delay: i * delayMultiple }}
-            viewport={{ once: true }}
-            className={cn("drop-shadow-sm ", className)}
-          >
-            {char}
-          </motion.h1>
-        ))}
+    <div className=" text-center">
+      <span className="sr-only">{text}</span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration, staggerChildren: 0.05 }}
+          viewport={{ once: true }}
+          aria-hidden
+        >
+          {text.split(" ").map((word, i) => (
+            <motion.span
+              transition={{ delay: delay }}
+              key={i}
+              className="inline-block"
+            >
+              {word.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={framerProps}
+                  className={cn("drop-shadow-sm inline-block", className)}
+                >
+                  {char}
+                </motion.span>
+              ))}
+              <span className={`inline-block ${spaceSize}`}>&nbsp;</span>
+            </motion.span>
+          ))}
+        </motion.span>
       </AnimatePresence>
     </div>
   );

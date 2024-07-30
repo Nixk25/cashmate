@@ -21,7 +21,7 @@ const paidAdvantages: AdvantageType[] = [
 ];
 const Pricing = () => {
   return (
-    <section className="relative mb-[100px]  mt-[300px] ">
+    <section id="pricing" className="relative mb-[100px]  mt-[300px] ">
       <div className="container">
         <div className="pt-10  bg-gray-950 pb-[200px] absolute flex justify-center w-full z-0 left-0 -top-[200px] tracking-tighter text-center text-white clamp font-playfair">
           <GradualSpacing text="Find your perfect plan" />

@@ -13,8 +13,7 @@ import {
 const AnimatedNavbar = () => {
   const navLinks = [
     { href: "#features", title: "Features" },
-    { href: "#about", title: "Pricing" },
-    { href: "#skills", title: "FQA" },
+    { href: "#pricing", title: "Pricing" },
   ];
 
   const [isChanged, setIsChanged] = useState(false);
@@ -77,9 +76,11 @@ const AnimatedNavbar = () => {
             Sign In
           </Link>
 
-          <Button className="transition-all bg-white text-slate-900 hover:brightness-105 hover:bg-white hover:scale-105 active:scale-95">
-            <Link href="auth/signUp">Try Free</Link>
-          </Button>
+          <Link href="auth/signUp">
+            <Button className="transition-all bg-white text-slate-900 hover:brightness-105 hover:bg-white hover:scale-105 active:scale-95">
+              Try Free
+            </Button>
+          </Link>
         </div>
       </motion.div>
     </motion.nav>

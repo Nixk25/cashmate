@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,10 +8,36 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model User{
-  id String @id @unique
-  email String
-  firstName String
-  lastName String
-  profileImage String
+model User {
+  id                   String       @id @default(cuid())
+  firstName            String
+  lastName             String
+  nickname             String?      @unique
+  profilePicture       String?
+  email                String       @unique
+  isFirstLogin         Boolean?     @default(true)
+  dateOfBirth          DateTime?
+  address              String?
+  city                 String?
+  postalCode           String?
+  country              String?
+  savingStrategy       String?
+  investmentExperience String?
+  bio                  String?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  incomes              Income[]
+}
+
+model Income {
+  id        String      @id @default(cuid())
+  userId    String
+  amount    Float
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }

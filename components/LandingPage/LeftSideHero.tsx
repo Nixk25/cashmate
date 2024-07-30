@@ -58,7 +58,6 @@ const LeftSideHero = () => {
         <motion.span
           initial={{ y: "100%", opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.5 }}
           viewport={{ once: true }}
           className="text-center md:text-start"
         >
@@ -72,7 +71,7 @@ const LeftSideHero = () => {
           transition={{ ease: "easeIn" }}
           viewport={{ once: true }}
         >
-          <Button className="group">
+          <Button className="group w-full">
             Learn More{" "}
             <FaArrowRight className="ml-1 transition-all group-hover:-rotate-45 " />
           </Button>
@@ -83,7 +82,7 @@ const LeftSideHero = () => {
           transition={{ ease: "easeIn" }}
           viewport={{ once: true }}
         >
-          <Button className="rounded-lg " variant="outline">
+          <Button className="rounded-lg  w-full" variant="outline">
             JOIN OUR DISCORD
           </Button>
         </motion.div>
