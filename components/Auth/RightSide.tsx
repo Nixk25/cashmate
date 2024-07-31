@@ -40,6 +40,7 @@ const RightSide = () => {
 
         <GradualSpacing
           text="Ready to take control of your finances?"
+          spaceSize="w-2"
           className="text-3xl font-bold"
         />
       </div>

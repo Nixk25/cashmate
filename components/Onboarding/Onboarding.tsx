@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
-import GradualSpacing from "../magicui/gradual-spacing";
 import MultiStepForm from "./MultiStepForm";
 import ShowTextOnboarding from "../ui/showTextOnboarding";
 interface OnboardingProps {
