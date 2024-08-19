@@ -10,7 +10,7 @@ interface OnboardingProps {
 }
 
 const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
-  const [showForm, setShowForm] = useState<boolean>(false);
+  const [showForm, setShowForm] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,15 +31,15 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
         interactive={false}
       >
         {showForm ? (
-          <MultiStepForm />
+          <MultiStepForm user={user} />
         ) : (
-          <motion.div className="absolute z-50 gap-x-10  inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-9xl">
+          <motion.div className="absolute inset-0 z-50 flex items-center justify-center px-4 text-3xl font-bold text-center text-white pointer-events-none gap-x-10 md:text-4xl lg:text-9xl">
             <ShowTextOnboarding
               firstText="Welcome to CashMate"
               secondText="Let's explore together"
               spaceSize="w-7"
               duration={1}
-              className=" leading-tight font-playfair  font-bold bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20 "
+              className="font-bold leading-tight text-transparent font-playfair bg-clip-text drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20"
             />
           </motion.div>
         )}

@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Divide as Hamburger } from "hamburger-react";
-
-const navLinks = [
-  { href: "#features", title: "Features" },
-  { href: "#about", title: "Pricing" },
-  { href: "#skills", title: "FQA" },
-];
+import { NAVLINKS } from "@/app/lib/constants";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -77,7 +71,7 @@ const Menu = () => {
                 exit="initial"
                 className="flex flex-col items-center justify-center gap-3 text-2xl font-bold transition-all duration-300 hover:text-primary"
               >
-                {navLinks.map(({ title, href }, i) => {
+                {NAVLINKS.map(({ title, href }, i) => {
                   return (
                     <div key={i} className="overflow-hidden">
                       <NavLink

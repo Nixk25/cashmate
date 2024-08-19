@@ -4,22 +4,8 @@ import { FaRegLightbulb } from "react-icons/fa";
 import { SiTicktick } from "react-icons/si";
 import { motion } from "framer-motion";
 import GradualSpacing from "../magicui/gradual-spacing";
+import { PROS } from "@/app/lib/constants";
 const RightSide = () => {
-  const pros = [
-    {
-      text: "Comprehensive financial tools: We offer a wide range of tools for effective financial management.",
-    },
-    {
-      text: "Personalized financial advice: Get tailored tips and advice to help you plan and save better.",
-    },
-    {
-      text: "Expense and income analysis: Track your expenses and income in real-time ",
-    },
-
-    {
-      text: "Security first: Your data is protected with state-of-the-art security standards.",
-    },
-  ];
   return (
     <motion.div
       initial={{ opacity: 0, filter: "blur(5px)", x: "100%" }}
@@ -45,7 +31,7 @@ const RightSide = () => {
         />
       </div>
       <ul className="space-y-4 list-none ml-2">
-        {pros.map(({ text }, i) => (
+        {PROS.map(({ text }, i) => (
           <motion.li
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

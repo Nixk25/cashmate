@@ -25,7 +25,7 @@ export default function GradualSpacing({
   delay,
 }: GradualSpacingProps) {
   return (
-    <div className=" text-center">
+    <div>
       <span className="sr-only">{text}</span>
       <AnimatePresence mode="wait">
         <motion.span

@@ -2,23 +2,7 @@ import React from "react";
 import PricingCard from "@/components/ui/PricingCard";
 import GradualSpacing from "../magicui/gradual-spacing";
 import { motion } from "framer-motion";
-export type AdvantageType = {
-  advantage: string;
-};
-
-const freeAdvantages: AdvantageType[] = [
-  { advantage: "Up to 1 user" },
-  { advantage: "Basic support" },
-  { advantage: "Access to core features" },
-];
-
-const paidAdvantages: AdvantageType[] = [
-  { advantage: "Unlimited users" },
-  { advantage: "System analytics" },
-  { advantage: "30-day free trial" },
-  { advantage: "Chat support 24/7" },
-  { advantage: "Advanced support services" },
-];
+import { PAIDADVANTAGES, FREEADVANTAGES } from "@/app/lib/constants";
 const Pricing = () => {
   return (
     <section id="pricing" className="relative mb-[100px]  mt-[300px] ">
@@ -38,14 +22,14 @@ const Pricing = () => {
               subheading="Perfect for personal use"
               price="Free"
               category="Starter"
-              advantages={freeAdvantages}
+              advantages={FREEADVANTAGES}
               color="white"
             />
             <PricingCard
               subheading="Perfect for team"
               price="$12/month"
               category="Professional"
-              advantages={paidAdvantages}
+              advantages={PAIDADVANTAGES}
               color="primary"
               textColor="white"
             />

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs";
 const LoginForm = () => {
+  const [email, setEmail] = useState<string>("");
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -17,7 +18,7 @@ const LoginForm = () => {
     >
       <Card className="my-auto border-none outline-none">
         <CardHeader>
-          <CardTitle className="text-3xl lg:text-6xl text-center  font-playfair ">
+          <CardTitle className="text-3xl text-center lg:text-6xl font-playfair ">
             Welcome back 👋
           </CardTitle>
         </CardHeader>
@@ -30,12 +31,24 @@ const LoginForm = () => {
                 type="email"
                 placeholder="youremail@example.com"
                 required
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
 
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
+            <LoginLink
+              authUrlParams={{
+                connection_id:
+                  process.env.NEXT_PUBLIC_EMAIL_CONNECTION_ID || "",
+                login_hint: email,
+              }}
+            >
+              <Button type="submit" className="w-full">
+                Enter CashMate
+              </Button>
+            </LoginLink>
             <LoginLink
               authUrlParams={{
                 connection_id:
@@ -44,7 +57,7 @@ const LoginForm = () => {
             >
               <Button
                 variant="outline"
-                className="w-full flex justify-center items-center"
+                className="flex items-center justify-center w-full"
               >
                 <FaGoogle size={20} className="mr-3" />
                 <span>Continue with Google</span>
@@ -58,14 +71,15 @@ const LoginForm = () => {
             >
               <Button
                 variant="outline"
-                className="w-full flex justify-center items-center"
+                className="flex items-center justify-center w-full"
               >
                 <FaApple size={20} className="mr-3" />
                 <span>Continue with Apple</span>
               </Button>
             </LoginLink>
           </div>
-          <div className="mt-4 text-center text-sm">
+
+          <div className="mt-4 text-sm text-center">
             Don&apos;t have an account?{" "}
             <Link href="/auth/signUp" className="underline">
               Sign up

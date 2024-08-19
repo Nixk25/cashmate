@@ -36,7 +36,7 @@ export default function ShowTextOnboarding({
 
     const secondTextTimeout = setTimeout(() => {
       setIsSecondText(false);
-    }, 10000); // Po 10 sekundách od začátku
+    }, 10000);
 
     return () => {
       clearTimeout(firstTextTimeout);

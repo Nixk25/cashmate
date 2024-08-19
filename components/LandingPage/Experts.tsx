@@ -8,69 +8,29 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
-import first from "../../public/firstman.jpeg";
-import second from "../../public/secondwoman.jpeg";
-import third from "../../public/third.jpeg";
-import fourth from "../../public/fourth.jpeg";
-import fifth from "../../public/fifth.jpeg";
+
 import GradualSpacing from "../magicui/gradual-spacing";
 import { motion } from "framer-motion";
-type ExpertsType = {
-  name: string;
-  description: string;
-  image: StaticImageData;
-};
-
-const experts: ExpertsType[] = [
-  {
-    name: "John Smith",
-    description:
-      "With over 20 years of experience in investment banking, John specializes in mergers and acquisitions, providing strategic financial advice to clients worldwide.",
-    image: first,
-  },
-  {
-    name: "Emily Chen",
-    description:
-      "Emily is a seasoned portfolio manager, known for her expertise in risk management and asset allocation. She has a strong track record of delivering consistent returns for her clients.",
-    image: second,
-  },
-  {
-    name: "Michael Johnson",
-    description:
-      "Michael is a financial analyst renowned for his deep understanding of market trends and economic indicators. He frequently publishes insightful research reports that are highly regarded by investors.",
-    image: third,
-  },
-  {
-    name: "Sarah Patel",
-    description:
-      "Sarah is a financial planner dedicated to helping individuals and families achieve their financial goals. She provides personalized advice on budgeting, saving, and retirement planning.",
-    image: fourth,
-  },
-  {
-    name: "David Lee",
-    description:
-      "David is an expert in corporate finance, specializing in capital raising and financial restructuring. He has successfully led numerous complex transactions for both public and private companies.",
-    image: fifth,
-  },
-];
+import { EXPERTS } from "@/app/lib/constants";
 
 const Experts = () => {
   return (
     <section className="mt-20 md:mt-[150px]">
       <div className="container">
-        <div className="flex flex-col items-center justify-center lg:flex-row  ">
+        <div className="flex flex-col items-center justify-center lg:flex-row ">
           <div className="flex-1 mb-3">
             <GradualSpacing
               text="Get Insights from Financial Experts"
-              className="relative z-10 leading-tight md:text-start font-playfair desc-clamp font-bold "
+              className="relative z-10 font-bold leading-tight md:text-start font-playfair desc-clamp "
             />
           </div>
 
-          <div className="flex-1 text-xl flex items-center justify-center text-center md:text-start">
+          <div className="flex items-center justify-center flex-1 text-xl text-center md:text-start">
             <GradualSpacing
               text="Our carefully selected and vetted financial experts offer advice and
               tips to help you manage your money better."
-              className="relative z-10 leading-tight  "
+              className="relative z-10 leading-tight "
+              spaceSize="w-2"
             />
           </div>
         </div>
@@ -81,7 +41,7 @@ const Experts = () => {
           className="w-full mt-20"
         >
           <CarouselContent>
-            {experts.map(({ name, description, image }, i) => (
+            {EXPERTS.map(({ name, description, image }, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 100, filter: "blur(5px)" }}

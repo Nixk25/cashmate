@@ -6,16 +6,8 @@ import Link from "next/link";
 import logo from "../../public/cashmate-logo.png";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import {
-  RegisterLink,
-  LoginLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
+import { NAVLINKS } from "@/app/lib/constants";
 const AnimatedNavbar = () => {
-  const navLinks = [
-    { href: "#features", title: "Features" },
-    { href: "#pricing", title: "Pricing" },
-  ];
-
   const [isChanged, setIsChanged] = useState(false);
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -57,7 +49,7 @@ const AnimatedNavbar = () => {
         className="flex items-center justify-end w-full gap-10 text-sm "
       >
         <div className="flex gap-3">
-          {navLinks.map((link, i) => (
+          {NAVLINKS.map((link, i) => (
             <a
               key={i}
               className="p-2 px-3 transition-colors duration-150 bg-transparent cursor-pointer rounded-2xl "
