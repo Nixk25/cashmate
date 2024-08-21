@@ -1,14 +1,5 @@
 // ONBOARDING CONSTANTS
 
-export const STEPS = [
-  "Basic Information",
-  "Address Details",
-  "Financial Goals",
-  "Income Details",
-  "Commitments",
-  "Investment Experience",
-];
-
 export const SAVING_STRATEGIES = [
   {
     value: "50/30/20",

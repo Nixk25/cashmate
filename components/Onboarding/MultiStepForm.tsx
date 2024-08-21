@@ -1,14 +1,12 @@
+"use client";
 import { useEffect, useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -26,324 +24,562 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { INPUTS, COMMITMENTS_OPTIONS } from "@/app/lib/constants";
+import {
+  COMMITMENTS_OPTIONS,
+  SAVING_STRATEGIES,
+  INCOME_RANGES,
+  INVESTMENT_EXPERIENCES,
+} from "@/app/lib/constants";
 import SelectableCard from "./SelectableCard";
 import { useCountries } from "@/app/lib/useCountries";
-import Image from "next/image";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 
-const basicInfoSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  nickname: z.string().min(1, "Nickname is required"),
-  dateOfBirth: z.date({
-    required_error: "A date of birth is required.",
+const personalInfoSchema = z.object({
+  basicInfo: z.object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    nickname: z.string().min(1, "Nickname is required"),
+    dateOfBirth: z.any({ required_error: "A date of birth is required." }),
+  }),
+  address: z.object({
+    address: z.string().min(1, "Address is required"),
+    city: z.string().min(1, "City is required"),
+    postalCode: z
+      .string()
+      .min(1, "Postal code is required")
+      .max(6, "Postal code must have 6 digits max")
+      .transform((val) => Number(val))
+      .refine((val) => !isNaN(val), "Postal code must be a number"),
+    country: z.string().min(1, "Country is required"),
   }),
 });
 
-const addressDetailsSchema = z.object({
-  address: z.string().min(1, "Address is required"),
-  city: z.string().min(1, "City is required"),
-  postalCode: z
-    .string()
-    .min(1, "Postal code is required")
-    .max(6, "Postal code must have 6 digits max")
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val), "Postal code must be a number"),
-  country: z.string().min(1, "Country is required"),
+const financialGoalsAndIncomeSchema = z.object({
+  financialGoals: z.object({
+    savingStrategy: z.string().min(1, "Saving strategy is required"),
+  }),
+  incomeDetails: z.object({
+    incomeRange: z.string().min(1, "Income range is required"),
+  }),
 });
 
-const financialGoalsSchema = z.object({
-  savingStrategy: z.string().min(1, "Saving strategy is required"),
-});
-
-const incomeDetailsSchema = z.object({
-  incomeRange: z.string().min(1, "Income range is required"),
-});
-
-const commitmentsSchema = z.object({
-  commitments: z.array(z.string().min(1, "Commitment is required")),
-});
-
-const investmentExperienceSchema = z.object({
-  investmentExperience: z.string().min(1, "Investment experience is required"),
+const commitmentsAndExperienceSchema = z.object({
+  commitments: z.object({
+    commitments: z.array(z.string().min(1, "Commitment is required")),
+  }),
+  investmentExperience: z.object({
+    investmentExperience: z
+      .string()
+      .min(1, "Investment experience is required"),
+  }),
 });
 
 const formSchema = z.object({
-  basicInfo: basicInfoSchema,
-  address: addressDetailsSchema,
-  financialGoals: financialGoalsSchema,
-  incomeDetails: incomeDetailsSchema,
-  commitments: commitmentsSchema,
-  investmentExperience: investmentExperienceSchema,
+  personalInfo: personalInfoSchema,
+  financialGoalsAndIncome: financialGoalsAndIncomeSchema,
+  commitmentsAndExperience: commitmentsAndExperienceSchema,
 });
+
+type FormValues = z.infer<typeof formSchema>;
 
 type MultiStepFormProps = {
   user: KindeUser | null;
 };
 
-type FormValues = z.infer<typeof formSchema>;
-
 const MultiStepForm = ({ user }: MultiStepFormProps) => {
-  const [selectedCommitments, setSelectedCommitments] = useState<string[]>([]);
+  const router = useRouter();
   const { countries } = useCountries();
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
-
   const countryOptions = countries.map((country) => ({
     value: country.code,
     label: country.name,
     flag: country.flag,
   }));
 
-  useEffect(() => {
+  const [selectedCommitments, setSelectedCommitments] = useState<string[]>([]);
+  const [currentStep, setCurrentStep] = useState<number>(() => {
+    const savedStep = localStorage.getItem("currentStep");
+    return savedStep ? parseInt(savedStep) : 0;
+  });
+
+  const [initialValues, setInitialValues] = useState<FormValues>(() => {
     const savedData = localStorage.getItem("formData");
-    if (savedData) {
-      const parsedData = JSON.parse(savedData);
-      setInitialValues(parsedData);
-    }
-  }, []);
+    return savedData
+      ? JSON.parse(savedData)
+      : {
+          personalInfo: {
+            basicInfo: {
+              firstName: user?.given_name ?? "",
+              lastName: user?.family_name ?? "",
+              nickname: "",
+              dateOfBirth: null,
+            },
+            address: {
+              address: "",
+              city: "",
+              postalCode: undefined,
+              country: "",
+            },
+          },
+          financialGoalsAndIncome: {
+            financialGoals: { savingStrategy: "" },
+            incomeDetails: { incomeRange: "" },
+          },
+          commitmentsAndExperience: {
+            commitments: { commitments: [] },
+            investmentExperience: { investmentExperience: "" },
+          },
+        };
+  });
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      basicInfo: {
-        firstName: "",
-        lastName: "",
-        nickname: "",
-        dateOfBirth: undefined,
-      },
-      address: { address: "", city: "", postalCode: undefined, country: "" },
-      financialGoals: { savingStrategy: "" },
-      incomeDetails: { incomeRange: "" },
-      commitments: { commitments: [] },
-      investmentExperience: { investmentExperience: "" },
-      ...initialValues, // Add initial values from localStorage
-    },
+    defaultValues: initialValues,
   });
+
+  useEffect(() => {
+    // Uložení hodnot do localStorage při každé změně hodnoty formuláře
+    localStorage.setItem("formData", JSON.stringify(form.getValues()));
+  }, [form.watch()]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("formData");
+
+    if (savedData) {
+      form.reset(JSON.parse(savedData));
+    }
+  }, [currentStep]);
 
   useEffect(() => {
     if (initialValues) {
       form.reset(initialValues);
+      setSelectedCommitments(
+        initialValues.commitmentsAndExperience.commitments.commitments || []
+      );
     }
   }, [initialValues, form]);
 
-  useEffect(() => {
-    const subscription = form.watch((values) => {
-      localStorage.setItem("formData", JSON.stringify(values));
-    });
+  const nextStep = async (fieldsToValidate: string[]) => {
+    //@ts-ignore
+    const isValid = await form.trigger(fieldsToValidate); // Spustí validaci konkrétních polí
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [form]);
+    if (isValid && currentStep < 3) {
+      localStorage.setItem("currentStep", (currentStep + 1).toString());
+      setCurrentStep(currentStep + 1);
+    }
+  };
 
-  useEffect(() => {
-    const storedCommitments = form.getValues("commitments.commitments");
-    setSelectedCommitments(storedCommitments);
-  }, [form.getValues("commitments.commitments")]);
+  const prevStep = () => {
+    if (currentStep > 0) {
+      localStorage.setItem("currentStep", (currentStep - 1).toString());
+      setCurrentStep(currentStep - 1);
+    }
+  };
 
   const handleCardSelect = (value: string) => {
-    const currentValues = form.getValues("commitments.commitments");
+    const currentValues = form.getValues(
+      "commitmentsAndExperience.commitments.commitments"
+    );
     const updatedValues = currentValues.includes(value)
       ? currentValues.filter((item) => item !== value)
       : [...currentValues, value];
 
     setSelectedCommitments(updatedValues);
-    form.setValue("commitments.commitments", updatedValues);
+    form.setValue(
+      "commitmentsAndExperience.commitments.commitments",
+      updatedValues
+    );
   };
 
-  const renderInput = (input: any) => {
-    switch (input.type) {
-      case "text":
+  const handleCountryChange = (value: string) => {
+    form.setValue("personalInfo.address.country", value);
+  };
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 0:
         return (
-          <FormField
-            key={input.name}
-            control={form.control}
-            name={input.name}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{input.label}</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder={input.label} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+          <>
+            <h2>Personal Information</h2>
+            <FormField
+              control={form.control}
+              name="personalInfo.basicInfo.firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="First Name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.basicInfo.lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Last Name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.basicInfo.dateOfBirth"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Date of birth</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(new Date(field.value), "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        //@ts-ignore
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.basicInfo.nickname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Your NickName</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="NickName" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.address.address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Address" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.address.city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="City" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.address.postalCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Postal Code</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Postal Code" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="personalInfo.address.country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <Select
+                    value={field.value || ""}
+                    onValueChange={handleCountryChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Country</SelectLabel>
+                        {countryOptions.map(({ flag, label, value }) => (
+                          <SelectItem key={value} value={label}>
+                            <div className="flex gap-2 items-center">
+                              <img
+                                src={flag}
+                                alt={value}
+                                className="size-4 object-cover"
+                              />
+                              <span>{label}</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {currentStep > 0 && (
+              <Button type="button" onClick={prevStep}>
+                Back
+              </Button>
             )}
-          />
+            <Button
+              onClick={() =>
+                nextStep([
+                  "personalInfo.basicInfo.firstName",
+                  "personalInfo.basicInfo.lastName",
+                  "personalInfo.basicInfo.dateOfBirth",
+                  "personalInfo.basicInfo.nickname",
+                  "personalInfo.address.address",
+                  "personalInfo.address.city",
+                  "personalInfo.address.postalCode",
+                  "personalInfo.address.country",
+                ])
+              }
+              type="button"
+            >
+              Next
+            </Button>
+          </>
         );
-      case "date":
+      case 1:
         return (
-          <FormField
-            key={input.name}
-            control={form.control}
-            name={input.name}
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Date of birth</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
+          <>
+            <h2>Financial Goals & Income</h2>
+            <FormField
+              control={form.control}
+              name="financialGoalsAndIncome.financialGoals.savingStrategy"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Saving Strategy</FormLabel>
+                  <Select
+                    value={field.value || ""}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      form.setValue(
+                        "financialGoalsAndIncome.financialGoals.savingStrategy",
+                        value
+                      );
+                      localStorage.setItem(
+                        "formData",
+                        JSON.stringify(form.getValues())
+                      );
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Saving Strategy" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Saving Strategy</SelectLabel>
+                        {SAVING_STRATEGIES.map((option: any) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="financialGoalsAndIncome.incomeDetails.incomeRange"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Your Income Range</FormLabel>
+                  <Select
+                    value={field.value || ""}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      form.setValue(
+                        "financialGoalsAndIncome.incomeDetails.incomeRange",
+                        value
+                      );
+                      localStorage.setItem(
+                        "formData",
+                        JSON.stringify(form.getValues())
+                      );
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Your Income Range" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Income Ranges</SelectLabel>
+                        {INCOME_RANGES.map((option: any) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {currentStep > 0 && (
+              <Button type="button" onClick={prevStep}>
+                Back
+              </Button>
             )}
-          />
+            <Button
+              onClick={() =>
+                nextStep([
+                  "financialGoalsAndIncome.financialGoals.savingStrategy",
+                  "financialGoalsAndIncome.incomeDetails.incomeRange",
+                ])
+              }
+              type="button"
+            >
+              Next
+            </Button>
+          </>
         );
-      case "select":
+      case 2:
         return (
-          <FormField
-            key={input.name}
-            control={form.control}
-            name={input.name}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{input.label}</FormLabel>
-                <Select
-                  value={field.value || ""} // Ensure the value is correctly set
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    form.setValue(input.name, value); // Save the value to form state
-                    localStorage.setItem(
-                      "formData",
-                      JSON.stringify(form.getValues())
-                    );
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={`Select ${input.label}`} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>{input.label}</SelectLabel>
-                      {input.options.map((option: any) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+          <>
+            <h2>Commitments & Experience</h2>
+            {COMMITMENTS_OPTIONS.map((option) => (
+              <SelectableCard
+                key={option.value}
+                label={option.label}
+                value={option.value}
+                isSelected={selectedCommitments.includes(option.value)}
+                onSelect={handleCardSelect}
+              />
+            ))}
+            <FormField
+              control={form.control}
+              name="commitmentsAndExperience.investmentExperience.investmentExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Your Investment Experience</FormLabel>
+                  <Select
+                    value={field.value || ""}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      form.setValue(
+                        "commitmentsAndExperience.investmentExperience.investmentExperience",
+                        value
+                      );
+                      localStorage.setItem(
+                        "formData",
+                        JSON.stringify(form.getValues())
+                      );
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Saving Strategy" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Investment Experience</SelectLabel>
+                        {INVESTMENT_EXPERIENCES.map((option: any) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {currentStep > 0 && (
+              <Button type="button" onClick={prevStep}>
+                Back
+              </Button>
             )}
-          />
+            <Button
+              onClick={() =>
+                nextStep([
+                  "commitmentsAndExperience.commitments.commitments",
+                  "commitmentsAndExperience.investmentExperience.investmentExperience",
+                ])
+              }
+              type="button"
+            >
+              Next
+            </Button>
+          </>
         );
-      case "multiselect":
+      case 3:
         return (
-          <FormField
-            control={form.control}
-            name={input.name}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{input.label}</FormLabel>
-                {input.options.map((option: any) => (
-                  <SelectableCard
-                    key={option.value}
-                    label={option.label}
-                    value={option.value}
-                    isSelected={selectedCommitments.includes(option.value)}
-                    onSelect={handleCardSelect}
-                  />
-                ))}
-                <FormMessage />
-              </FormItem>
+          <>
+            <h2>Review & Submit</h2>
+            {currentStep > 0 && (
+              <Button type="button" onClick={prevStep}>
+                Back
+              </Button>
             )}
-          />
-        );
-      case "countrySelect":
-        return (
-          <FormField
-            key={input.name}
-            control={form.control}
-            name={input.name}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{input.label}</FormLabel>
-                <Select
-                  value={field.value || ""} // Ensure the value is correctly set
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    form.setValue(input.name, value); // Save the value to form state
-                    localStorage.setItem(
-                      "formData",
-                      JSON.stringify(form.getValues())
-                    );
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={`Select ${input.label}`} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>{input.label}</SelectLabel>
-                      {countryOptions.map(({ flag, label, value }) => (
-                        <SelectItem key={value} value={label}>
-                          <div className="flex gap-2 items-center">
-                            <img
-                              src={flag}
-                              alt={value}
-                              className="size-4 object-cover"
-                            />
-                            <span>{label}</span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <Button type="submit">Submit</Button>
+          </>
         );
       default:
         return null;
     }
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: FormValues) => {
     console.log(values);
-    localStorage.removeItem("formData");
+    router.push("/dashboard");
   };
-
   return (
-    <FormProvider {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex relative z-50"
-      >
-        {INPUTS.map((input, index) => (
-          <div key={index}>{renderInput(input)}</div>
-        ))}
-        <Button type="submit">Submit</Button>
+    <Form {...form}>
+      <form className="relative z-50" onSubmit={form.handleSubmit(onSubmit)}>
+        {renderStep()}
       </form>
-    </FormProvider>
+    </Form>
   );
 };
 
