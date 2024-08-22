@@ -12,16 +12,16 @@ interface OnboardingProps {
 const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
   const [showForm, setShowForm] = useState<boolean>(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowForm(true);
-    }, 12000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShowForm(true);
+  //   }, 12000);
+  // }, []);
   return (
     <div>
       <BackgroundGradientAnimation
-        gradientBackgroundStart="rgb(139, 186, 239)"
-        gradientBackgroundEnd="rgb(48, 91, 164)"
+        gradientBackgroundStart="rgb(255, 255, 255)"
+        gradientBackgroundEnd="rgb(255, 255, 255)"
         firstColor="109, 158, 232"
         secondColor="164, 194, 247"
         thirdColor="139, 186, 239"
@@ -39,7 +39,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
               secondText="Let's explore together"
               spaceSize="w-7"
               duration={1}
-              className="font-bold leading-tight text-transparent font-playfair bg-clip-text drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20"
+              className="font-bold leading-tight text-transparent font-playfair bg-clip-text drop-shadow-2xl bg-gradient-to-b from-black to-gray-500"
             />
           </motion.div>
         )}
