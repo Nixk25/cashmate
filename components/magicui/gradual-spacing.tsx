@@ -39,13 +39,13 @@ export default function GradualSpacing({
             <motion.span
               transition={{ delay: delay }}
               key={i}
-              className="inline-block"
+              className="inline-block max-h-[40px]"
             >
               {word.split("").map((char, i) => (
                 <motion.span
                   key={i}
                   variants={framerProps}
-                  className={cn("drop-shadow-sm inline-block", className)}
+                  className={cn("drop-shadow-sm inline-block h-min", className)}
                 >
                   {char}
                 </motion.span>

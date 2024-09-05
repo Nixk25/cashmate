@@ -1,6 +1,6 @@
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import z from "zod";
-
+//@ts-ignore
 export const getDefaultValues = (user: KindeUser) => ({
   personalInfo: {
     basicInfo: {
@@ -31,7 +31,9 @@ export const personalInfoSchema = z.object({
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
     nickname: z.string().min(1, "Nickname is required"),
-    dateOfBirth: z.any({ required_error: "A date of birth is required." }),
+    dateOfBirth: z
+      .string({ required_error: "A date of birth is required." })
+      .min(1),
   }),
   address: z.object({
     address: z.string().min(1, "Address is required"),

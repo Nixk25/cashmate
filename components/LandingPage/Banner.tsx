@@ -6,7 +6,7 @@ const Banner: React.FC = () => {
   return (
     <section className="relative mt-[150px] md:p-20 p-5 overflow-hidden bg-primary ">
       <Particles
-        className="absolute inset-0 z-0"
+        className="absolute pinset-0 z-0"
         quantity={200}
         ease={50}
         color="#000"

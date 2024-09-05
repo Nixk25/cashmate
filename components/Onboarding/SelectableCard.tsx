@@ -1,3 +1,4 @@
+"use client";
 type SelectableCardProps = {
   label: string;
   value: string;

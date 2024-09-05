@@ -3,6 +3,7 @@ import PricingCard from "@/components/ui/PricingCard";
 import GradualSpacing from "../magicui/gradual-spacing";
 import { motion } from "framer-motion";
 import { PAIDADVANTAGES, FREEADVANTAGES } from "@/app/lib/constants";
+
 const Pricing = () => {
   return (
     <section id="pricing" className="relative mb-[100px]  mt-[300px] ">

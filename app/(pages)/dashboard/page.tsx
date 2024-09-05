@@ -4,9 +4,11 @@ import React from "react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 const page = () => {
-  localStorage.clear();
+  if (typeof window !== "undefined") {
+    localStorage.clear();
+  }
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <LogoutLink>logout</LogoutLink>
     </div>
   );

@@ -1,22 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import MultiStepForm from "./MultiStepForm";
 import ShowTextOnboarding from "../ui/showTextOnboarding";
 interface OnboardingProps {
+  //@ts-ignore
   user: KindeUser | null;
 }
 
 const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
   const [showForm, setShowForm] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowForm(true);
-  //   }, 12000);
-  // }, []);
+  /* useEffect(() => {
+    setTimeout(() => {
+      setShowForm(true);
+    }, 12000);
+  }, []); */
   return (
     <div>
       <BackgroundGradientAnimation
@@ -33,7 +33,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
         {showForm ? (
           <MultiStepForm user={user} />
         ) : (
-          <motion.div className="absolute inset-0 z-50 flex items-center justify-center px-4 text-3xl font-bold text-center text-white pointer-events-none gap-x-10 md:text-4xl lg:text-9xl">
+          <div className="absolute inset-0 z-50 flex items-center justify-center px-4 text-3xl font-bold text-center text-white pointer-events-none gap-x-10 md:text-4xl lg:text-9xl">
             <ShowTextOnboarding
               firstText="Welcome to CashMate"
               secondText="Let's explore together"
@@ -41,7 +41,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
               duration={1}
               className="font-bold leading-tight text-transparent font-playfair bg-clip-text drop-shadow-2xl bg-gradient-to-b from-black to-gray-500"
             />
-          </motion.div>
+          </div>
         )}
       </BackgroundGradientAnimation>
     </div>

@@ -13,11 +13,9 @@ import ThirdStep from "./steps/ThirdStep";
 import {
   commitmentsAndExperienceSchema,
   financialGoalsAndIncomeSchema,
-  getDefaultValues,
   personalInfoSchema,
 } from "./Schemas";
-import { AnimatePresence } from "framer-motion";
-import AnimateStep from "./AnimateStep";
+import { AnimatePresence, motion } from "framer-motion";
 
 const formSchema = z.object({
   personalInfo: personalInfoSchema,
@@ -28,6 +26,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 type MultiStepFormProps = {
+  //@ts-ignore
   user: KindeUser | null;
 };
 
@@ -35,6 +34,7 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
   const router = useRouter();
   const [selectedCommitments, setSelectedCommitments] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(0);
 
   const [initialValues, setInitialValues] = useState<FormValues>(() => {
     if (typeof window !== "undefined") {
@@ -111,19 +111,19 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
     const isValid = await form.trigger(fieldsToValidate);
 
     if (isValid && currentStep < 3) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("currentStep", (currentStep + 1).toString());
-      }
-      setCurrentStep(currentStep + 1);
+      setDirection(1);
+      setTimeout(() => {
+        setCurrentStep((prevStep) => prevStep + 1);
+      }, 50);
     }
   };
 
   const prevStep = () => {
     if (currentStep > 0) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("currentStep", (currentStep - 1).toString());
-      }
-      setCurrentStep(currentStep - 1);
+      setDirection(-1);
+      setTimeout(() => {
+        setCurrentStep((prevStep) => prevStep - 1);
+      }, 50);
     }
   };
 
@@ -131,38 +131,32 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
     switch (currentStep) {
       case 0:
         return (
-          <AnimateStep>
-            <FirstStep
-              form={form}
-              currentStep={currentStep}
-              prevStep={prevStep}
-              nextStep={nextStep}
-            />
-          </AnimateStep>
+          <FirstStep
+            form={form}
+            currentStep={currentStep}
+            prevStep={prevStep}
+            nextStep={nextStep}
+          />
         );
       case 1:
         return (
-          <AnimateStep>
-            <SecondStep
-              form={form}
-              currentStep={currentStep}
-              prevStep={prevStep}
-              nextStep={nextStep}
-            />
-          </AnimateStep>
+          <SecondStep
+            form={form}
+            currentStep={currentStep}
+            prevStep={prevStep}
+            nextStep={nextStep}
+          />
         );
       case 2:
         return (
-          <AnimateStep>
-            <ThirdStep
-              form={form}
-              currentStep={currentStep}
-              prevStep={prevStep}
-              nextStep={nextStep}
-              setSelectedCommitments={setSelectedCommitments}
-              selectedCommitments={selectedCommitments}
-            />
-          </AnimateStep>
+          <ThirdStep
+            form={form}
+            currentStep={currentStep}
+            prevStep={prevStep}
+            nextStep={nextStep}
+            setSelectedCommitments={setSelectedCommitments}
+            selectedCommitments={selectedCommitments}
+          />
         );
       case 3:
         return (
@@ -188,12 +182,43 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
 
   return (
     <Form {...form}>
-      <form
-        className="absolute inset-0 z-50"
+      <motion.form
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 1 }}
+        className="absolute inset-0 z-50 max-h-screen overflow-x-hidden "
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        {renderStep()}
-      </form>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={currentStep}
+            custom={direction}
+            variants={{
+              enter: (direction: number) => ({
+                x: direction > 0 ? 150 : -150,
+                opacity: 0,
+              }),
+              center: {
+                x: 0,
+                opacity: 1,
+              },
+              exit: (direction: number) => ({
+                x: direction < 0 ? 150 : -150,
+                opacity: 0,
+              }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut",
+            }}
+          >
+            {renderStep()}
+          </motion.div>
+        </AnimatePresence>
+      </motion.form>
     </Form>
   );
 };

@@ -52,7 +52,7 @@ const BannerContent = () => {
           transition={{ ease: "easeIn" }}
           viewport={{ once: true }}
         >
-          <Button className="flex items-center justify-center mx-auto transition-all bg-black w-max lg:mx-0 animate-bounce group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
+          <Button className="flex items-center justify-center mx-auto transition-all bg-black w-max lg:mx-0  group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
             Learn More{" "}
             <FaArrowRight className="ml-1 transition-all group-hover:-rotate-45" />
           </Button>

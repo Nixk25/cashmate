@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -78,14 +80,16 @@ const ThirdStep = ({
                   "commitmentsAndExperience.investmentExperience.investmentExperience",
                   value
                 );
-                localStorage.setItem(
-                  "formData",
-                  JSON.stringify(form.getValues())
-                );
+                if (window !== undefined) {
+                  localStorage.setItem(
+                    "formData",
+                    JSON.stringify(form.getValues())
+                  );
+                }
               }}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Saving Strategy" />
+                <SelectValue placeholder="Select investment experience" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

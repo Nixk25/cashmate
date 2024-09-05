@@ -7,9 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./button";
-import { AdvantageType } from "../LandingPage/Pricing";
-import { TiTick } from "react-icons/ti";
 
+import { TiTick } from "react-icons/ti";
+export type AdvantageType = {
+  advantage: String;
+};
 type PricingCardPropsType = {
   category: string;
   price: string;
@@ -53,7 +55,7 @@ const PricingCard = ({
       </CardContent>
       <CardFooter className="w-full p-0">
         <Button
-          className={`w-full rounded-none rounded-bl-md rounded-br-md text-${textColor} bg-${color}`}
+          className={`w-full active:scale-100 hover:scale-100 rounded-none rounded-bl-md rounded-br-md text-${textColor} bg-${color}`}
         >
           Try For Free
         </Button>
