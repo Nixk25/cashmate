@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import MultiStepForm from "./MultiStepForm";
@@ -10,13 +10,13 @@ interface OnboardingProps {
 }
 
 const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
-  const [showForm, setShowForm] = useState<boolean>(true);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
-  /* useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       setShowForm(true);
     }, 12000);
-  }, []); */
+  }, []);
   return (
     <div>
       <BackgroundGradientAnimation
