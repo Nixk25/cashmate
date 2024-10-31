@@ -16,7 +16,7 @@ const LoginForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ ease: "easeIn", duration: 0.3 }}
     >
-      <Card className="my-auto border-none outline-none">
+      <Card className="my-auto border-none shadow-none outline-none">
         <CardHeader>
           <CardTitle className="text-3xl text-center lg:text-6xl font-playfair ">
             Welcome back 👋

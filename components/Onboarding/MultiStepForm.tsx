@@ -16,6 +16,7 @@ import {
   personalInfoSchema,
 } from "./Schemas";
 import { AnimatePresence, motion } from "framer-motion";
+import StepHeading from "./StepHeading";
 
 const formSchema = z.object({
   personalInfo: personalInfoSchema,
@@ -160,15 +161,17 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
         );
       case 3:
         return (
-          <>
-            <h2>Review & Submit</h2>
-            {currentStep > 0 && (
-              <Button type="button" onClick={prevStep}>
-                Back
-              </Button>
-            )}
-            <Button type="submit">Submit</Button>
-          </>
+          <div className="flex flex-col items-center justify-center w-full min-h-screen gap-5">
+            <StepHeading headline="Do you want to submit?" />
+            <div className="flex gap-5">
+              {currentStep > 0 && (
+                <Button type="button" onClick={prevStep}>
+                  Back
+                </Button>
+              )}
+              <Button type="submit">Submit</Button>
+            </div>
+          </div>
         );
       default:
         return null;
@@ -186,6 +189,7 @@ const MultiStepForm = ({ user }: MultiStepFormProps) => {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 1 }}
+        //@ts-ignore
         className="absolute inset-0 z-50 max-h-screen overflow-x-hidden "
         onSubmit={form.handleSubmit(onSubmit)}
       >

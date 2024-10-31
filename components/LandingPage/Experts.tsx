@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 import GradualSpacing from "../magicui/gradual-spacing";
 import { motion } from "framer-motion";

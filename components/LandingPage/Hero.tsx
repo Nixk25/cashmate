@@ -18,6 +18,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: "100%", filter: "blur(5px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ delay: 1, ease: "easeIn" }}
+        //@ts-ignore
         className="relative z-10 max-w-3xl mt-5 sm-clamp"
       >
         Manage your income and expenses easily and securely, without sharing

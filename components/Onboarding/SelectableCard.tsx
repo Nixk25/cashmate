@@ -1,4 +1,6 @@
 "use client";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
 type SelectableCardProps = {
   label: string;
   value: string;
@@ -13,14 +15,15 @@ const SelectableCard = ({
   onSelect,
 }: SelectableCardProps) => {
   return (
-    <div
+    <Card
       onClick={() => onSelect(value)}
-      className={`cursor-pointer p-4 border rounded-lg ${
+      className={`cursor-pointer p-4 border rounded-lg min-w-[500px] ${
         isSelected ? "bg-primary text-white" : "bg-white text-black"
       }`}
     >
-      {label}
-    </div>
+      <CardHeader>ICON</CardHeader>
+      <CardContent>{label}</CardContent>
+    </Card>
   );
 };
 

@@ -5,7 +5,7 @@ import { FaStar, FaHandsClapping } from "react-icons/fa6";
 import { motion } from "framer-motion";
 const RightSideHero = () => {
   return (
-    <div className="flex flex-1 flex-col md:flex-row gap-10">
+    <div className="flex flex-col flex-1 gap-10 md:flex-row">
       <RatingCard />
 
       <motion.div
@@ -13,6 +13,7 @@ const RightSideHero = () => {
         whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
         transition={{ delay: 0.6, ease: "easeIn" }}
         viewport={{ once: true }}
+        //@ts-ignore
         className="flex flex-col justify-between flex-1 p-5 rounded-lg bg-primary/40"
       >
         <div className="flex justify-end w-full">
@@ -36,6 +37,7 @@ const RatingCard = () => {
       whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
       transition={{ delay: 0.3, ease: "easeIn" }}
       viewport={{ once: true }}
+      //@ts-ignore
       className="flex-1 rounded-lg p-7 bg-primary/10"
     >
       <div className="flex gap-5 ">
@@ -57,8 +59,8 @@ const RatingCard = () => {
         </div>
       </div>
       <p className="mt-5">
-        "It's not just about passive consumption; it's about actively engaging
-        with others who share my passion for learning."
+        `&quot;`It's not just about passive consumption; it's about actively
+        engaging with others who share my passion for learning.`&quot;`
       </p>
     </motion.div>
   );

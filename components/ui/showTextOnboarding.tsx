@@ -63,14 +63,20 @@ export default function ShowTextOnboarding({
             transition={{ duration, staggerChildren: 0.05 }}
             variants={framerProps}
             aria-hidden
+            //@ts-ignore
             className="inline-block"
           >
             {currentText.split(" ").map((word, i) => (
-              <motion.span key={i} className="inline-block">
+              <motion.span
+                key={i}
+                //@ts-ignore
+                className="inline-block"
+              >
                 {word.split("").map((char, j) => (
                   <motion.span
                     key={j}
                     variants={framerProps}
+                    //@ts-ignore
                     className={cn("drop-shadow-sm inline-block", className)}
                   >
                     {char}

@@ -4,7 +4,6 @@ import { UseFormReturn } from "react-hook-form";
 import { DatePicker } from "@nextui-org/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 
-
 import {
   Select,
   SelectContent,
@@ -113,7 +112,7 @@ const FirstStep: React.FC<FirstStepProps> = ({
   };
 
   return (
-    <section className="py-10">
+    <section className="flex flex-col items-center justify-center gap-10 py-10">
       <StepHeading headline="Tell us more about yourself" />
 
       <div className="container flex flex-col items-center justify-center max-w-[400px] w-full">
@@ -237,14 +236,11 @@ const AddressFields: React.FC<{
       control={form.control}
       name="personalInfo.address.country"
       render={({ field }) => (
-        <FormItem className="w-full mt-3">
+        <FormItem className="w-full mt-3" suppressHydrationWarning>
           <FormLabel>Country</FormLabel>
           <Select value={field.value || ""} onValueChange={handleCountryChange}>
             <SelectTrigger suppressHydrationWarning>
-              <SelectValue
-                suppressHydrationWarning
-                placeholder="Select Country"
-              />
+              <SelectValue placeholder="Select Country" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -297,7 +293,7 @@ const DateOfBirthField: React.FC<{
             errorMessage="You have to be at least 18 years old to use CashMate"
           />
         </FormControl>
-        {dateError && <p className="text-red-500 text-sm">{dateError}</p>}
+        {dateError && <p className="text-sm text-red-500">{dateError}</p>}
         <FormDescription>
           You must be at least 18 years old to use CashMate
         </FormDescription>

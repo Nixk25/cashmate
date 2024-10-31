@@ -19,7 +19,7 @@ const Benefit: React.FC<BenefitProps> = ({ idx, heading }) => {
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ ease: "easeIn", delay: idx * 0.2 }}
       viewport={{ once: true }}
-      className="flex items-center w-full gap-5 p-5 bg-white border-2 border-black"
+      className="flex items-center w-full gap-5 p-5 bg-white rounded-lg rounded-bl-none"
     >
       <div className="flex items-center justify-center text-white rounded-full size-10 bg-primary ">
         i
@@ -30,7 +30,7 @@ const Benefit: React.FC<BenefitProps> = ({ idx, heading }) => {
 };
 const BannerContent = () => {
   return (
-    <div className="relative flex flex-col gap-10 z-5 sm:flex-row">
+    <div className="relative flex flex-col items-center justify-center gap-10 z-5 sm:flex-row">
       <div className="flex-1 text-black">
         <GradualSpacing
           text="A platform for everyone"
@@ -52,7 +52,7 @@ const BannerContent = () => {
           transition={{ ease: "easeIn" }}
           viewport={{ once: true }}
         >
-          <Button className="flex items-center justify-center mx-auto transition-all bg-black w-max lg:mx-0  group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
+          <Button className="flex items-center justify-center mx-auto transition-all bg-black w-max lg:mx-0 group hover:bg-black hover:brightness-105 hover:scale-105 active:scale-95">
             Learn More{" "}
             <FaArrowRight className="ml-1 transition-all group-hover:-rotate-45" />
           </Button>

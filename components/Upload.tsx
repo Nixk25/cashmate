@@ -5,7 +5,7 @@ import { UploadButton, UploadDropzone } from "@/app/lib/uploadthing";
 import Image from "next/image";
 import { toast } from "sonner";
 
-const upload = () => {
+const Upload = () => {
   const [profileImage, setProfileImage] = useState<null | string>(null);
 
   return (
@@ -36,4 +36,4 @@ const upload = () => {
   );
 };
 
-export default upload;
+export default Upload;
