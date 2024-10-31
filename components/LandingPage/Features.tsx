@@ -19,6 +19,7 @@ const Features = () => {
             staggerChildren: 0.2,
           }}
           viewport={{ once: true }}
+          //@ts-ignore
           className="grid grid-cols-12 gap-4 mx-auto mb-20 grid-flow-dense"
         >
           <Visualization />
@@ -58,6 +59,7 @@ const Block = ({ className, ...rest }: BlockProps) => {
         stiffness: 400,
         damping: 50,
       }}
+      //@ts-ignore
       className={twMerge("col-span-4 rounded-lg  bg-primary/50 p-6", className)}
       {...rest}
     />

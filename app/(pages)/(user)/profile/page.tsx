@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { Menu, Package2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -122,10 +115,10 @@ const profile = async () => {
           </form>
 
           <UserNav
-            name={user?.given_name}
-            surname={user?.family_name}
-            email={user?.email}
-            userImage={user?.picture}
+            name={user?.given_name || ""}
+            surname={user?.family_name || ""}
+            email={user?.email || ""}
+            userImage={user?.picture || ""}
           />
         </div>
       </header>
@@ -153,7 +146,9 @@ const profile = async () => {
                 <CardTitle>Profile Info</CardTitle>
               </CardHeader>
               <CardContent>
-                <EditForm user={user} />
+                <EditForm
+                  user={{ ...user, profilePicture: user?.picture || null }}
+                />
               </CardContent>
             </Card>
           </div>

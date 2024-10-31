@@ -39,6 +39,7 @@ export const AnimatedTooltip = ({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: idx * 0.2 }}
           viewport={{ once: true }}
+          //@ts-ignore
           className="relative -mr-4 group"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
@@ -63,6 +64,7 @@ export const AnimatedTooltip = ({
                 rotate: rotate,
                 whiteSpace: "nowrap",
               }}
+              //@ts-ignore
               className="absolute z-50 flex flex-col items-center justify-center px-4 py-2 text-xs translate-x-1/2 bg-black rounded-md shadow-xl -top-16 -left-1/2"
             >
               <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />

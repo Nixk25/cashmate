@@ -21,6 +21,7 @@ const AnimatedNavbar = () => {
   });
   return (
     <motion.nav
+      //@ts-ignore
       className="z-[60] bg-primary shadow-2xl flex   text-white p-3 px-7 mt-5 fixed top-0 left-[50%] translate-x-[-50%] justify-between items-center  
              rounded-full h-[60px]   transition-all duration-300"
       initial={{ y: -100, x: "-50%" }}
@@ -46,6 +47,7 @@ const AnimatedNavbar = () => {
           opacity: isChanged ? 0 : 1,
         }}
         transition={{ delay: isChanged ? 0 : 0.5 }}
+        //@ts-ignore
         className="flex items-center justify-end w-full gap-10 text-sm "
       >
         <div className="flex gap-3">

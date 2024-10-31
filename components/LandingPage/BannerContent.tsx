@@ -19,6 +19,7 @@ const Benefit: React.FC<BenefitProps> = ({ idx, heading }) => {
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ ease: "easeIn", delay: idx * 0.2 }}
       viewport={{ once: true }}
+      //@ts-ignore
       className="flex items-center w-full gap-5 p-5 bg-white rounded-lg rounded-bl-none"
     >
       <div className="flex items-center justify-center text-white rounded-full size-10 bg-primary ">
@@ -41,6 +42,7 @@ const BannerContent = () => {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ ease: "easeIn" }}
           viewport={{ once: true }}
+          //@ts-ignore
           className="mb-10 text-xl lg:text-start"
         >
           CashMate helps individuals of all backgrounds manage their finances

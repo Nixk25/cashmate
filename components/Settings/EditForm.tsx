@@ -18,11 +18,11 @@ import { UploadButton } from "@/app/lib/uploadthing";
 import { toast } from "sonner";
 type editFormTypes = {
   user: {
-    given_name: string;
-    family_name: string;
-    email: string;
-    profilePicture: string;
-    picture: string;
+    given_name: string | null;
+    family_name: string | null;
+    email: string | null;
+    profilePicture?: string | null;
+    picture: string | null;
   };
 };
 
@@ -41,7 +41,7 @@ const EditForm = ({ user }: editFormTypes) => {
       name: "",
       surname: "",
       email: "",
-      profilePicture: "",
+      profilePicture: user?.profilePicture || "",
     },
   });
 
@@ -62,7 +62,11 @@ const EditForm = ({ user }: editFormTypes) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder={user.given_name} {...field} />
+                    <Input
+                      //@ts-ignore
+                      placeholder={user.given_name}
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -76,7 +80,11 @@ const EditForm = ({ user }: editFormTypes) => {
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input placeholder={user.family_name} {...field} />
+                    <Input
+                      //@ts-ignore
+                      placeholder={user.family_name}
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -90,7 +98,11 @@ const EditForm = ({ user }: editFormTypes) => {
                 <FormItem>
                   <FormLabel>Your email</FormLabel>
                   <FormControl>
-                    <Input placeholder={user.email} {...field} />
+                    <Input
+                      //@ts-ignore
+                      placeholder={user.email}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

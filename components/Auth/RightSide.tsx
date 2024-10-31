@@ -11,6 +11,7 @@ const RightSide = () => {
       initial={{ opacity: 0, filter: "blur(5px)", x: "100%" }}
       animate={{ opacity: 1, filter: "blur(0px)", x: 0 }}
       transition={{ ease: "easeIn", duration: 0.3 }}
+      //@ts-ignore
       className="relative flex-col justify-center flex-1 hidden p-8 lg:flex bg-primary"
     >
       <div className="bg-primary h-full w-[50px] absolute top-0 xl:w-[100px] -left-5 xl:-left-16 -skew-x-2" />
@@ -37,6 +38,7 @@ const RightSide = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: "easeIn", delay: (i + 2) * 0.2 }}
             key={i}
+            //@ts-ignore
             className="flex items-center gap-3"
           >
             <SiTicktick color="white" size={16} />

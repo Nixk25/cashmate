@@ -59,8 +59,8 @@ const RatingCard = () => {
         </div>
       </div>
       <p className="mt-5">
-        `&quot;`It's not just about passive consumption; it's about actively
-        engaging with others who share my passion for learning.`&quot;`
+        `&quot;`It&quot;s not just about passive consumption; it&quot;s about
+        actively engaging with others who share my passion for learning.`&quot;`
       </p>
     </motion.div>
   );

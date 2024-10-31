@@ -61,6 +61,7 @@ const Menu = () => {
             initial="initial"
             animate="animate"
             exit="exit"
+            //@ts-ignore
             className="fixed inset-0 z-50 w-full origin-left bg-white h-dvh"
           >
             <div className="container relative flex items-center justify-center h-full ">
@@ -69,6 +70,7 @@ const Menu = () => {
                 initial="initial"
                 animate="visible"
                 exit="initial"
+                //@ts-ignore
                 className="flex flex-col items-center justify-center gap-3 text-2xl font-bold transition-all duration-300 hover:text-primary"
               >
                 {NAVLINKS.map(({ title, href }, i) => {
@@ -115,7 +117,11 @@ const NavLink = ({ title, href, closeMenu }: navLinkProps) => {
     },
   };
   return (
-    <motion.div variants={navLinkVariants} onClick={closeMenu}>
+    <motion.div
+      variants={navLinkVariants}
+      //@ts-ignore
+      onClick={closeMenu}
+    >
       <Link href={href}>{title}</Link>
     </motion.div>
   );
