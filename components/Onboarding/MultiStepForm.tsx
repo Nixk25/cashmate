@@ -26,10 +26,9 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-type MultiStepFormProps = {
-  //@ts-ignore
-  user: KindeUser | null;
-};
+interface MultiStepFormProps {
+  user: KindeUser<any> | null;
+}
 
 const MultiStepForm = ({ user }: MultiStepFormProps) => {
   const router = useRouter();

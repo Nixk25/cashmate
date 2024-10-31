@@ -6,8 +6,7 @@ import ShowTextOnboarding from "../ui/showTextOnboarding";
 import { NextUIProvider } from "@nextui-org/react";
 
 interface OnboardingProps {
-  //@ts-ignore
-  user: KindeUser | null;
+  user: KindeUser<any> | null;
 }
 
 const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
