@@ -26,6 +26,6 @@ export async function GET() {
       },
     });
   }
-
-  return NextResponse.redirect("http://localhost:3000/onboarding");
+  //@ts-ignore
+  return NextResponse.redirect(process.env.NEXT_PUBLIC_KINDE_URL);
 }
