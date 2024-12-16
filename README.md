@@ -32,4 +32,4 @@ The project began with the goal of creating an intuitive platform for personal f
 
 
 <h2>Project Visuals 📸</h2>
-<img width="1439" alt="Snímek obrazovky elcat gallery" src="https://github.com/user-attachments/assets/9ff537df-a568-4dd5-b9bd-3c0f1cb23c96">
+<img width="1439" alt="Snímek obrazovky elcat gallery" src="https://github.com/user-attachments/assets/47700e36-a650-4f7f-b986-5b8f2f86b203">
